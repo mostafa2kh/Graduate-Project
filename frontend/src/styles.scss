@@ -1,0 +1,52 @@
+// RentSphere Design System — Main Stylesheet
+// =============================================
+
+@use 'styles/typography';
+@use 'styles/components';
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-light);
+  min-height: 100vh;
+  color: var(--text-dark);
+  font-family: var(--font-family);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+input, textarea, select {
+  font-family: inherit;
+}
+
+::selection {
+  background: rgba(37, 99, 235, 0.2);
+  color: #1D4ED8;
+}

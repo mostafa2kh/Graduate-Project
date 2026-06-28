@@ -1,0 +1,20 @@
+server:
+  port: 8086
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/rentsphere_moderation_db
+    username: rentsphere
+    password: rentsphere
+  jpa:
+    show-sql: true
+
+services:
+  listing:
+    url: http://localhost:8083
+  ai-review:
+    url: http://localhost:8085
+
+jwt:
+  secret: rentsphere-dev-jwt-secret-key-change-in-production
+  access-token-minutes: 180

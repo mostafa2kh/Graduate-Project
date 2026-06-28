@@ -1,0 +1,13 @@
+package com.rentsphere.aireview.enums;
+
+public enum FlagType {
+    MISSING_IMAGES,
+    SUSPICIOUS_PRICE,
+    INCOMPLETE_DESCRIPTION,
+    NO_AMENITIES,
+    MISSING_ADDRESS,
+    PRICE_TOO_HIGH,
+    PRICE_TOO_LOW,
+    SUSPICIOUS_CONTENT,
+    UNVERIFIED_OWNER
+}

@@ -1,0 +1,4 @@
+Demo accounts (password:password123):
+- renter@rentsphere.com (Renter)
+- landlord@rentsphere.com (Landlord)
+- admin@rentsphere.com (Admin)

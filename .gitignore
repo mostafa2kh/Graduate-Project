@@ -4,38 +4,13 @@
 *.swp
 *.swo
 *~
+*.iml
+*.ipr
+*.iws
 
-# Build
-target/
-build/
-dist/
-out/
-*.class
-*.jar
-*.war
-*.ear
-
-# Maven
-.mvn/
-mvnw
-mvnw.cmd
-
-# Gradle
-.gradle/
-gradlew
-gradlew.cmd
-
-# Node
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnp
-.pnp.js
-
-# Angular
-angular/
-*.tsbuildinfo
+# OS
+.DS_Store
+Thumbs.db
 
 # Environment
 .env
@@ -44,34 +19,52 @@ angular/
 .env.prod
 .env.staging
 
+# Backend - Java / Spring Boot
+**/target/
+**/build/
+**/out/
+*.class
+*.jar
+*.war
+*.ear
+**/.mvn/
+**/mvnw
+**/mvnw.cmd
+**/.gradle/
+**/gradlew
+**/gradlew.cmd
+**/!gradle/wrapper/gradle-wrapper.jar
+
+# Frontend - Angular / Node
+**/node_modules/
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/.angular/
+**/dist/
+
 # Docker
 docker-compose.override.yml
 *.tar
 
 # Logs
 logs/
+**/logs/
 *.log
 
-# OS
-.DS_Store
-Thumbs.db
-
-# IDE specific
-*.iml
-*.ipr
-*.iws
-
 # Test coverage
-coverage/
-.nyc_output/
+**/coverage/
+**/.nyc_output/
+
+# Media uploads (local development)
+**/uploads/
+**/media-storage/
 
 # Misc
 *.pid
 *.seed
 *.pid.lock
+*.tsbuildinfo
 
-# IDEA
-.idea/
-
-# VS Code
-.vscode/
+# Git
+.aider*

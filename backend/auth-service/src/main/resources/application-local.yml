@@ -1,0 +1,15 @@
+server:
+  port: ${AUTH_SERVICE_PORT:8081}
+
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:rentsphere_auth_db}
+    username: rentsphere
+    password: rentsphere
+
+  jpa:
+    show-sql: true
+
+jwt:
+  secret: dev-secret-key-that-is-at-least-256-bits-long-for-local-development-only
+  access-token-minutes: 60

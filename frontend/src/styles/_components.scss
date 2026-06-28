@@ -1,0 +1,138 @@
+// RentSphere Design System — Reusable CSS Utility Classes
+// ==========================================================
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.btn-primary {
+  @include button-primary;
+}
+
+.btn-secondary {
+  @include button-secondary;
+}
+
+.btn-outline {
+  @include button-outline;
+}
+
+.btn-lg {
+  padding: $space-4 $space-8;
+  font-size: $text-base;
+}
+
+.btn-sm {
+  padding: $space-2 $space-4;
+  font-size: $text-xs;
+}
+
+.card {
+  @include card;
+}
+
+.card-header {
+  padding: $space-6;
+  border-bottom: 1px solid $card-border;
+
+  h3 { font-size: $text-lg; font-weight: 600; }
+}
+
+.card-body {
+  padding: $space-6;
+}
+
+.input-field {
+  @include input-base;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+
+  label {
+    font-size: $text-sm;
+    font-weight: 600;
+    color: $text-dark;
+  }
+
+  .error-message {
+    font-size: $text-xs;
+    color: $danger;
+    margin-top: $space-1;
+  }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: $space-1 $space-3;
+  border-radius: $radius-full;
+  font-size: $text-xs;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-primary {
+  background: $primary-bg;
+  color: $primary;
+}
+
+.badge-success {
+  background: $success-bg;
+  color: $success;
+}
+
+.badge-warning {
+  background: $warning-bg;
+  color: $warning;
+}
+
+.badge-danger {
+  background: $danger-bg;
+  color: $danger;
+}
+
+.container {
+  @include container;
+}
+
+.section {
+  padding: $space-16 0;
+
+  @include md {
+    padding: $space-20 0;
+  }
+}
+
+.section-title {
+  font-size: $text-3xl;
+  font-weight: 800;
+  margin-bottom: $space-4;
+}
+
+.section-subtitle {
+  font-size: $text-lg;
+  color: $text-muted;
+  max-width: 600px;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, $primary, $secondary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-card {
+  background: rgba($card-light, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba($card-light, 0.2);
+  border-radius: $radius-xl;
+  box-shadow: $shadow-lg;
+}
+
+.skeleton {
+  @include skeleton;
+}
