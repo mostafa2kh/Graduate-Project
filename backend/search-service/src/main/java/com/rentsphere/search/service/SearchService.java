@@ -22,15 +22,19 @@ public class SearchService {
     public SearchService(SearchableListingRepository repository) { this.repository = repository; }
 
     public Page<ListingSearchResponse> search(SearchRequest req) {
-        Sort sort = switch (req.getSortBy()) {
+        String sortBy = req.getSortBy() == null ? "newest" : req.getSortBy();
+        Sort sort = switch (sortBy) {
             case "price-asc" -> Sort.by("price").ascending();
             case "price-desc" -> Sort.by("price").descending();
             default -> Sort.by("createdAt").descending();
         };
-        Pageable pageable = PageRequest.of(req.getPage(), req.getSize(), sort);
+        Pageable pageable = PageRequest.of(Math.max(req.getPage(), 0), Math.max(1, Math.min(req.getSize(), 100)), sort);
+        String query = normalize(firstNonBlank(req.getQuery(), req.getQ()));
+        if (query == null) query = "";
 
         return repository.searchListings(
-                req.getCity(), req.getArea(), req.getPropertyType(),
+                query,
+                normalize(req.getCity()), normalize(req.getArea()), normalize(req.getPropertyType()),
                 req.getMinPrice(), req.getMaxPrice(),
                 req.getMinBedrooms(), req.getMinBathrooms(),
                 req.getFurnished(), pageable
@@ -72,5 +76,14 @@ public class SearchService {
         r.setLandlordId(l.getLandlordId()); r.setPrimaryImageUrl(l.getPrimaryImageUrl());
         r.setTrustScore(l.getTrustScore()); r.setCreatedAt(l.getCreatedAt());
         return r;
+    }
+
+    private String firstNonBlank(String first, String second) {
+        return normalize(first) != null ? first : second;
+    }
+
+    private String normalize(String value) {
+        if (value == null || value.isBlank()) return null;
+        return value.trim();
     }
 }

@@ -99,20 +99,22 @@ import { ToastService } from '../../shared/services/toast.service';
               </div>
             </div>
 
-            <div class="card favorites-card">
-              <div class="card-header"><h3>Favorites</h3></div>
-              <div class="card-body">
-                @if (favorites.length === 0) {
-                  <div class="empty-state">
-                    <p>No favorites yet</p>
-                    <a routerLink="/listings" class="btn-outline btn-sm">Browse Listings</a>
-                  </div>
-                } @else {
-                  <p>{{ favorites.length }} listing(s) saved</p>
-                  <a routerLink="/favorites" class="btn-outline btn-sm">View Favorites</a>
-                }
+            @if (profile?.renter) {
+              <div class="card favorites-card">
+                <div class="card-header"><h3>Favorites</h3></div>
+                <div class="card-body">
+                  @if (favorites.length === 0) {
+                    <div class="empty-state">
+                      <p>No favorites yet</p>
+                      <a routerLink="/search" class="btn-outline btn-sm">Browse Listings</a>
+                    </div>
+                  } @else {
+                    <p>{{ favorites.length }} listing(s) saved</p>
+                    <a routerLink="/dashboard/favorites" class="btn-outline btn-sm">View Favorites</a>
+                  }
+                </div>
               </div>
-            </div>
+            }
           </div>
         </div>
       </div>
@@ -288,7 +290,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadProfile();
-    this.loadFavorites();
     this.loadVerification();
   }
 
@@ -297,6 +298,7 @@ export class ProfileComponent implements OnInit {
       next: (res) => {
         this.profile = res.data;
         this.editProfile = { ...this.profile };
+        if (this.profile?.renter) this.loadFavorites();
       },
       error: () => this.toast.show('Failed to load profile', 'error')
     });

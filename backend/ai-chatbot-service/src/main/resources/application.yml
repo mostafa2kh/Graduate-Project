@@ -1,0 +1,14 @@
+server:
+  port: 8095
+
+spring:
+  application:
+    name: ai-chatbot-service
+
+jwt:
+  secret: change-me-in-production-use-a-long-random-string-that-is-at-least-256-bits-long
+  expiration: 1800000
+
+logging:
+  level:
+    com.rentsphere: DEBUG

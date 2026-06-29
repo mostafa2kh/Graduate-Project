@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
+import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
 import { ToastService } from '../../shared/services/toast.service';
@@ -84,11 +84,11 @@ import { ToastService } from '../../shared/services/toast.service';
     @use 'index' as *;
 
     .auth-page {
-      min-height: calc(100vh - $navbar-height);
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, $primary-bg 0%, $secondary-bg 50%, $accent-bg 100%);
+      background: $bg-dark;
       padding: $space-6;
     }
 
@@ -99,8 +99,8 @@ import { ToastService } from '../../shared/services/toast.service';
 
     .auth-card {
       background: $card-light;
-      border-radius: $radius-xl;
-      box-shadow: $shadow-xl;
+      border-radius: 24px;
+      box-shadow: 0 24px 80px rgba(#000, 0.4);
       overflow: hidden;
     }
 
@@ -112,25 +112,27 @@ import { ToastService } from '../../shared/services/toast.service';
     .auth-logo {
       display: inline-flex;
       align-items: center;
-      gap: $space-2;
+      gap: $space-3;
       font-size: $text-xl;
-      font-weight: 800;
-      color: $primary;
+      font-weight: 950;
+      color: $text-dark;
       text-decoration: none;
-      margin-bottom: $space-8;
+      margin-bottom: $space-6;
+      letter-spacing: -0.05em;
 
       .logo-icon {
         width: 28px;
         height: 28px;
-        color: $primary;
+        color: $secondary-dark;
       }
     }
 
     .auth-title {
       font-size: $text-3xl;
-      font-weight: 800;
+      font-weight: 950;
       color: $text-dark;
       margin-bottom: $space-2;
+      letter-spacing: -0.04em;
     }
 
     .auth-subtitle {
@@ -145,9 +147,67 @@ import { ToastService } from '../../shared/services/toast.service';
       gap: $space-5;
     }
 
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: $space-2;
+    }
+
+    .form-group label {
+      font-size: $text-xs;
+      font-weight: 900;
+      color: $text-dark;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: $space-3 $space-4;
+      border: 1.5px solid $card-border;
+      border-radius: 14px;
+      font-family: $font-family;
+      font-size: $text-sm;
+      font-weight: 700;
+      color: $text-dark;
+      background: $card-light;
+      transition: border-color $transition-base, box-shadow $transition-base;
+      outline: none;
+
+      &:focus {
+        border-color: $secondary-dark;
+        box-shadow: 0 0 0 3px rgba($secondary-dark, 0.12);
+      }
+
+      &::placeholder {
+        color: $text-light;
+      }
+    }
+
     .btn-full {
       width: 100%;
       justify-content: center;
+    }
+
+    .btn-full.btn-primary {
+      padding: $space-4;
+      border-radius: 14px;
+      font-size: $text-sm;
+      font-weight: 900;
+      background: $primary;
+      color: $text-white;
+      border: none;
+      box-shadow: none;
+
+      &:hover:not(:disabled) {
+        background: $primary-light;
+        transform: translateY(-1px);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
     }
 
     .spinner {
@@ -168,15 +228,15 @@ import { ToastService } from '../../shared/services/toast.service';
       align-items: center;
       gap: $space-3;
       padding: $space-3 $space-4;
-      border-radius: $radius-md;
+      border-radius: 14px;
       font-size: $text-sm;
       font-weight: 500;
     }
 
     .alert-error {
-      background: $danger-bg;
-      color: $danger;
-      border: 1px solid rgba($danger, 0.2);
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid rgba(#dc2626, 0.15);
     }
 
     .alert-icon {
@@ -200,9 +260,9 @@ import { ToastService } from '../../shared/services/toast.service';
     }
 
     .auth-link {
-      color: $primary;
+      color: $secondary-dark;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 900;
 
       &:hover {
         text-decoration: underline;
@@ -219,6 +279,7 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private route: ActivatedRoute,
     private toast: ToastService
   ) {}
 
@@ -234,12 +295,20 @@ export class LoginComponent {
     this.authService.login({ email: this.email, password: this.password }).subscribe({
       next: () => {
         this.toast.show('Welcome back!', 'success');
-        this.router.navigate(['/dashboard/overview']);
+        this.router.navigateByUrl(this.getRedirectUrl());
       },
       error: (err) => {
         this.error = err.message || 'Invalid email or password';
         this.loading = false;
       }
     });
+  }
+
+  private getRedirectUrl(): string {
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+    if (returnUrl?.startsWith('/') && !returnUrl.startsWith('//')) {
+      return returnUrl;
+    }
+    return this.authService.getDefaultRedirectUrl();
   }
 }

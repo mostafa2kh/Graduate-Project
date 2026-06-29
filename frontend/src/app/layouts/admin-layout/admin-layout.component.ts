@@ -110,13 +110,13 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 
     .sidebar-header {
       padding: $space-6;
-      border-bottom: 1px solid rgba($text-muted, 0.2);
+      border-bottom: 1px solid rgba($text-white, 0.08);
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: $space-2;
+      gap: $space-3;
       text-decoration: none;
     }
 
@@ -124,19 +124,21 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 32px;
-      height: 32px;
-      background: linear-gradient(135deg, $accent, $primary);
-      color: $text-white;
-      border-radius: $radius-md;
-      font-weight: 800;
-      font-size: $text-base;
+      width: 34px;
+      height: 34px;
+      background: $secondary;
+      color: $text-dark;
+      border-radius: 12px;
+      font-weight: 950;
+      font-size: $text-lg;
+      letter-spacing: -0.04em;
     }
 
     .logo-text {
       font-size: $text-lg;
-      font-weight: 700;
+      font-weight: 950;
       color: $text-white;
+      letter-spacing: -0.05em;
     }
 
     .sidebar-nav {
@@ -152,21 +154,21 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
       align-items: center;
       gap: $space-3;
       padding: $space-3 $space-4;
-      border-radius: $radius-md;
+      border-radius: 12px;
       font-size: $text-sm;
       font-weight: 500;
-      color: rgba($text-light, 0.8);
+      color: rgba($text-white, 0.6);
       transition: all $transition-base;
       text-decoration: none;
 
       &:hover {
-        background: rgba($text-white, 0.08);
+        background: rgba($text-white, 0.06);
         color: $text-white;
       }
 
       &.active {
-        background: rgba($primary, 0.15);
-        color: $primary-light;
+        background: rgba($secondary, 0.1);
+        color: $secondary;
         font-weight: 600;
       }
     }
@@ -175,18 +177,24 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
       width: 20px;
       height: 20px;
       flex-shrink: 0;
+      opacity: 0.7;
+
+      .nav-item.active & {
+        opacity: 1;
+        color: $secondary;
+      }
     }
 
     .sidebar-footer {
       padding: $space-4;
-      border-top: 1px solid rgba($text-muted, 0.2);
+      border-top: 1px solid rgba($text-white, 0.08);
     }
 
     .main-area {
       flex: 1;
       margin-left: $sidebar-width;
       min-height: 100vh;
-      background: $bg-light;
+      background: $warm-white;
 
       @include sm {
         margin-left: 0;
@@ -200,7 +208,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
       height: $navbar-height;
       padding: 0 $space-8;
       background: $card-light;
-      border-bottom: 1px solid $card-border;
+      border-bottom: 1px solid rgba(#13211f, 0.08);
 
       @include sm {
         padding: 0 $space-4;
@@ -212,7 +220,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
       background: none;
       border: none;
       padding: $space-2;
-      color: $text-muted;
+      color: $text-muted-green;
 
       @include sm {
         display: flex;
@@ -232,25 +240,25 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 
     .admin-badge {
       padding: $space-1 $space-3;
-      background: $primary-bg;
-      color: $primary;
+      background: rgba($secondary, 0.12);
+      color: $secondary-dark;
       border-radius: $radius-full;
       font-size: $text-xs;
-      font-weight: 700;
+      font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
     }
 
     .avatar {
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: linear-gradient(135deg, $accent, $primary);
-      color: $text-white;
+      background: $bg-dark;
+      color: $secondary;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 600;
+      font-weight: 900;
       font-size: $text-sm;
       cursor: pointer;
     }

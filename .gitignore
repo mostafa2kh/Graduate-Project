@@ -68,3 +68,7 @@ logs/
 
 # Git
 .aider*
+
+# Archives
+*.zip
+*.tar.gz

@@ -6,563 +6,572 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [RouterLink],
   template: `
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-bg"></div>
-      <div class="container hero-content">
-        <div class="hero-text">
-          <h1 class="hero-title">
-            Find Your Perfect<br/>
-            <span class="text-gradient">Rental Home</span>
-          </h1>
-          <p class="hero-subtitle">
-            RentSphere connects you with trusted landlords and verified properties.
-            Browse, book, and move in — all in one place.
+    <div class="home-page">
+      <section class="hero">
+        <div class="hero-photo" aria-hidden="true"></div>
+        <div class="hero-overlay" aria-hidden="true"></div>
+
+        <div class="container hero-content">
+          <p class="eyebrow">Verified furnished rentals</p>
+          <h1>Find a move-in ready home that fits your life.</h1>
+          <p class="hero-text">
+            Browse trusted apartments, compare clear monthly pricing, and move from search to booking without the usual rental friction.
           </p>
-          <div class="hero-cta">
-            <a routerLink="/register" class="btn-primary btn-lg">Get Started</a>
-            <a routerLink="/search" class="btn-outline btn-lg">Browse Listings</a>
+
+          <div class="search-card">
+            <div class="search-field main-field">
+              <span>Where</span>
+              <strong>Cairo, Alexandria, Giza</strong>
+            </div>
+            <div class="search-field">
+              <span>Stay</span>
+              <strong>Monthly rentals</strong>
+            </div>
+            <div class="search-field">
+              <span>Homes</span>
+              <strong>Verified listings</strong>
+            </div>
+            <a routerLink="/search" class="search-button">Search homes</a>
           </div>
-          <div class="hero-stats">
-            <div class="stat">
-              <span class="stat-number">500+</span>
-              <span class="stat-label">Properties</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat">
-              <span class="stat-number">1,200+</span>
-              <span class="stat-label">Happy Tenants</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat">
-              <span class="stat-number">98%</span>
-              <span class="stat-label">Satisfaction</span>
-            </div>
-          </div>
-        </div>
-        <div class="hero-visual">
-          <div class="hero-card">
-            <div class="hero-card-header">
-              <div class="hero-card-dots"><span></span><span></span><span></span></div>
-            </div>
-            <div class="hero-card-body">
-              <div class="hero-card-image"></div>
-              <div class="hero-card-info">
-                <div class="hero-card-title"></div>
-                <div class="hero-card-price"></div>
-                <div class="hero-card-features">
-                  <span></span><span></span><span></span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="hero-card-secondary">
-            <div class="hero-card-body">
-              <div class="hero-card-image small"></div>
-              <div class="hero-card-info">
-                <div class="hero-card-title short"></div>
-                <div class="hero-card-price short"></div>
-              </div>
-            </div>
+
+          <div class="city-links" aria-label="Popular cities">
+            @for (city of cities; track city.name) {
+              <a routerLink="/search" [queryParams]="{ city: city.name }">{{ city.name }}</a>
+            }
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Features Section -->
-    <section class="section features">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Why Choose <span class="text-gradient">RentSphere</span></h2>
-          <p class="section-subtitle">
-            We make renting simple, secure, and stress-free for everyone.
-          </p>
-        </div>
-
-        <div class="features-grid">
-          @for (feature of features; track feature.title) {
-            <div class="feature-card">
-              <div class="feature-icon" [style.background]="feature.iconBg">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" [style.color]="feature.iconColor">
-                  <path [attr.d]="feature.iconPath"/>
-                </svg>
-              </div>
-              <h3 class="feature-title">{{ feature.title }}</h3>
-              <p class="feature-desc">{{ feature.description }}</p>
-            </div>
-          }
-        </div>
-      </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="section how-it-works" style="background: $bg-gray;">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">How It <span class="text-gradient">Works</span></h2>
-          <p class="section-subtitle">
-            Three simple steps to find your next rental home.
-          </p>
-        </div>
-
-        <div class="steps">
-          @for (step of steps; track step.number) {
-            <div class="step-card">
-              <div class="step-number">{{ step.number }}</div>
-              <h3 class="step-title">{{ step.title }}</h3>
-              <p class="step-desc">{{ step.description }}</p>
-            </div>
-          }
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="section cta">
-      <div class="container">
-        <div class="cta-card">
-          <div class="cta-content">
-            <h2 class="cta-title">Ready to Find Your Next Home?</h2>
-            <p class="cta-subtitle">
-              Join thousands of satisfied renters and landlords on RentSphere.
+      <section class="section welcome">
+        <div class="container">
+          <div class="section-head centered">
+            <p class="eyebrow dark">Welcome to RentSphere</p>
+            <h2 class="centered-title">Everything you need, nothing you don't.</h2>
+            <p class="section-subtitle">
+              From verified listings to secure booking — we make renting feel like home.
             </p>
-            <a routerLink="/register" class="btn-primary btn-lg">Create Free Account</a>
+          </div>
+
+          <div class="feature-grid">
+            @for (item of features; track item.title) {
+              <article class="feature-card">
+                <div class="feature-icon">{{ item.icon }}</div>
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.text }}</p>
+              </article>
+            }
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section class="section destinations">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow dark">Popular destinations</p>
+              <h2>Start with the neighborhoods renters ask for most.</h2>
+            </div>
+            <a routerLink="/search" class="text-link">View all listings</a>
+          </div>
+
+          <div class="city-grid">
+            @for (city of cities; track city.name) {
+              <a routerLink="/search" [queryParams]="{ city: city.name }" class="city-card">
+                <img [src]="city.image" [alt]="city.name" />
+                <div>
+                  <span>{{ city.count }}</span>
+                  <h3>{{ city.name }}</h3>
+                </div>
+              </a>
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="section lifestyle">
+        <div class="container">
+          <div class="section-head centered">
+            <p class="eyebrow dark">Find what suits your lifestyle</p>
+            <h2 class="centered-title">One platform, every rental need.</h2>
+            <p class="section-subtitle">
+              Whether you're finding a home, listing a property, or managing a portfolio.
+            </p>
+          </div>
+
+          <div class="lifestyle-grid">
+            @for (item of lifestyleCards; track item.title) {
+              <a [routerLink]="item.link" class="lifestyle-card" [style.--card-bg]="item.bgColor">
+                <div class="lifestyle-image" [style.background-image]="'url(' + item.image + ')'" aria-hidden="true"></div>
+                <div class="lifestyle-body">
+                  <h3>{{ item.title }}</h3>
+                  <p>{{ item.text }}</p>
+                  <span class="lifestyle-cta">Learn more &#8594;</span>
+                </div>
+              </a>
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="section trusts">
+        <div class="container trust-content">
+          <div class="trust-text">
+            <p class="eyebrow dark">Powered by trust</p>
+            <h2>Transparency at every step of your rental journey.</h2>
+            <p class="section-copy">
+              Every listing includes verified landlord profiles, trust scores, and real reviews so you can book with confidence.
+            </p>
+            <a routerLink="/search" class="trust-cta">Start exploring</a>
+          </div>
+
+          <div class="trust-stats">
+            @for (stat of stats; track stat.number) {
+              <div class="stat-card">
+                <span class="stat-number">{{ stat.number }}</span>
+                <span class="stat-label">{{ stat.label }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="section owners">
+        <div class="container owner-card">
+          <div>
+            <p class="eyebrow dark">For landlords</p>
+            <h2>List your property, manage requests, and build renter trust from one dashboard.</h2>
+          </div>
+          <a routerLink="/register" class="owner-button">Become a host</a>
+        </div>
+      </section>
+    </div>
   `,
   styles: [`
     @use 'index' as *;
 
-    // Hero
+    .home-page { background: #fbfaf6; color: #13211f; }
+    .container { max-width: 1240px; }
+
     .hero {
       position: relative;
       min-height: calc(100vh - $navbar-height);
       display: flex;
       align-items: center;
       overflow: hidden;
-      background: linear-gradient(135deg, $primary-bg 0%, $secondary-bg 50%, $accent-bg 100%);
+      background: #13211f;
     }
 
-    .hero-bg {
+    .hero-photo, .hero-overlay {
       position: absolute;
-      top: -50%;
-      right: -20%;
-      width: 800px;
-      height: 800px;
-      background: radial-gradient(circle, rgba($primary, 0.08) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
+      inset: 0;
+    }
+
+    .hero-photo {
+      background: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+      transform: scale(1.02);
+    }
+
+    .hero-overlay {
+      background: linear-gradient(90deg, rgba(#09110f, 0.78), rgba(#09110f, 0.48) 45%, rgba(#09110f, 0.16));
     }
 
     .hero-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: $space-12;
-      align-items: center;
-      padding-top: $space-8;
-      padding-bottom: $space-8;
-
-      @include lg {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-    }
-
-    .hero-title {
-      font-size: 3.5rem;
-      font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: $space-6;
-      color: $text-dark;
-
-      @include sm {
-        font-size: 2.5rem;
-      }
-    }
-
-    .hero-subtitle {
-      font-size: $text-lg;
-      color: $text-muted;
-      margin-bottom: $space-8;
-      max-width: 540px;
-      line-height: 1.7;
-
-      @include lg {
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: $space-4;
-      margin-bottom: $space-12;
-
-      @include lg {
-        justify-content: center;
-      }
-
-      @include sm {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-
-    .hero-stats {
-      display: flex;
-      align-items: center;
-      gap: $space-8;
-
-      @include lg {
-        justify-content: center;
-      }
-    }
-
-    .stat {
-      display: flex;
-      flex-direction: column;
-      gap: $space-1;
-    }
-
-    .stat-number {
-      font-size: $text-2xl;
-      font-weight: 800;
-      color: $text-dark;
-    }
-
-    .stat-label {
-      font-size: $text-sm;
-      color: $text-muted;
-    }
-
-    .stat-divider {
-      width: 1px;
-      height: 40px;
-      background: $card-border;
-    }
-
-    // Hero Visual Cards
-    .hero-visual {
       position: relative;
-      display: flex;
-      flex-direction: column;
-      gap: $space-4;
-
-      @include lg {
-        display: none;
-      }
+      z-index: 1;
+      padding-top: $space-20;
+      padding-bottom: $space-20;
     }
 
-    .hero-card {
-      background: $card-light;
-      border-radius: $radius-xl;
-      box-shadow: $shadow-xl;
+    .eyebrow {
+      margin-bottom: $space-3;
+      color: #dbc391;
+      font-size: $text-xs;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow.dark { color: #8a6a35; }
+
+    .hero h1 {
+      max-width: 780px;
+      color: $text-white;
+      font-size: clamp(2.9rem, 6vw, 5.9rem);
+      line-height: 0.98;
+      letter-spacing: -0.06em;
+    }
+
+    .hero-text {
+      max-width: 620px;
+      margin-top: $space-5;
+      color: rgba($text-white, 0.82);
+      font-size: $text-lg;
+      line-height: 1.75;
+    }
+
+    .search-card {
+      display: grid;
+      grid-template-columns: 1.2fr 0.72fr 0.8fr auto;
+      gap: 1px;
+      max-width: 940px;
+      margin-top: $space-8;
       overflow: hidden;
-      max-width: 420px;
-      transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
-      transition: transform $transition-slow;
-
-      &:hover {
-        transform: perspective(1000px) rotateY(-3deg) rotateX(1deg) translateY(-4px);
-      }
+      border: 1px solid rgba($text-white, 0.18);
+      border-radius: 18px;
+      background: rgba($text-white, 0.3);
+      box-shadow: 0 22px 60px rgba(#000, 0.26);
     }
 
-    .hero-card-header {
-      padding: $space-4 $space-6;
-      display: flex;
+    .search-field {
+      padding: $space-4 $space-5;
+      background: rgba($text-white, 0.96);
+    }
+
+    .search-field span, .search-field strong { display: block; }
+    .search-field span { color: #7a8582; font-size: $text-xs; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+    .search-field strong { margin-top: $space-1; color: #13211f; font-size: $text-sm; }
+
+    .search-button, .owner-button {
+      display: inline-flex;
       align-items: center;
+      justify-content: center;
+      min-height: 100%;
+      padding: 0 $space-8;
+      background: #13211f;
+      color: $text-white;
+      font-size: $text-sm;
+      font-weight: 900;
+      transition: background $transition-base;
+      white-space: nowrap;
     }
 
-    .hero-card-dots {
+    .search-button:hover, .owner-button:hover { background: #2b403b; }
+
+    .city-links {
       display: flex;
-      gap: 6px;
-
-      span {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-
-        &:nth-child(1) { background: #EF4444; }
-        &:nth-child(2) { background: #F59E0B; }
-        &:nth-child(3) { background: #22C55E; }
-      }
+      flex-wrap: wrap;
+      gap: $space-3;
+      margin-top: $space-6;
     }
 
-    .hero-card-body {
-      padding: $space-6;
+    .city-links a {
+      padding: $space-2 $space-4;
+      border: 1px solid rgba($text-white, 0.26);
+      border-radius: $radius-full;
+      color: $text-white;
+      font-size: $text-sm;
+      font-weight: 800;
+      backdrop-filter: blur(8px);
+    }
+
+    .section { padding: $space-20 0; }
+
+    .section-head {
       display: flex;
-      gap: $space-4;
+      align-items: end;
+      justify-content: space-between;
+      gap: $space-8;
+      margin-bottom: $space-10;
     }
 
-    .hero-card-image {
-      width: 120px;
-      height: 100px;
-      background: linear-gradient(135deg, $primary, $secondary);
-      border-radius: $radius-md;
-      flex-shrink: 0;
-      opacity: 0.15;
-    }
-
-    .hero-card-info {
-      flex: 1;
-      display: flex;
+    .section-head.centered {
       flex-direction: column;
-      gap: $space-3;
-    }
-
-    .hero-card-title {
-      height: 16px;
-      width: 70%;
-      background: $bg-gray;
-      border-radius: 4px;
-    }
-
-    .hero-card-price {
-      height: 12px;
-      width: 40%;
-      background: $bg-gray;
-      border-radius: 4px;
-    }
-
-    .hero-card-features {
-      display: flex;
-      gap: $space-3;
-      margin-top: $space-2;
-
-      span {
-        height: 8px;
-        width: 50px;
-        background: $bg-gray;
-        border-radius: 4px;
-      }
-    }
-
-    .hero-card-secondary {
-      @extend .hero-card;
-      max-width: 340px;
-      margin-left: 60px;
-      transform: perspective(1000px) rotateY(-3deg) rotateX(1deg);
-      opacity: 0.7;
-
-      .hero-card-image.small {
-        width: 80px;
-        height: 70px;
-      }
-
-      .hero-card-title.short { width: 50%; }
-      .hero-card-price.short { width: 30%; }
-    }
-
-    // Section Header
-    .section-header {
+      align-items: center;
       text-align: center;
       margin-bottom: $space-12;
     }
 
-    // Features Grid
-    .features-grid {
+    h2 {
+      max-width: 760px;
+      color: #13211f;
+      font-size: clamp(2rem, 3.5vw, 3.8rem);
+      line-height: 1.02;
+      letter-spacing: -0.055em;
+    }
+
+    .centered-title { text-align: center; max-width: 620px; }
+
+    .section-subtitle {
+      max-width: 540px;
+      margin-top: $space-4;
+      color: #63716e;
+      font-size: $text-base;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .text-link {
+      color: #8a6a35;
+      font-size: $text-sm;
+      font-weight: 900;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      white-space: nowrap;
+    }
+
+    .city-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      gap: $space-5;
+    }
+
+    .city-card {
+      position: relative;
+      min-height: 330px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      border-radius: 22px;
+      background: #ddd;
+      color: $text-white;
+    }
+
+    .city-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform $transition-slow;
+    }
+
+    .city-card:hover img { transform: scale(1.05); }
+    .city-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 30%, rgba(#000, 0.72)); }
+    .city-card div { position: relative; z-index: 1; padding: $space-5; }
+    .city-card span { color: rgba($text-white, 0.78); font-size: $text-sm; }
+    .city-card h3 { margin-top: $space-1; font-size: $text-3xl; letter-spacing: -0.045em; }
+
+    .welcome { background: #fff; border-bottom: 1px solid rgba(#13211f, 0.08); }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: $space-6;
-
-      @include lg {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      @include sm {
-        grid-template-columns: 1fr;
-      }
     }
 
     .feature-card {
-      @include card;
-      padding: $space-8;
+      padding: $space-8 $space-6;
+      border: 1px solid rgba(#13211f, 0.08);
+      border-radius: 18px;
+      background: #fbfaf6;
       transition: transform $transition-base, box-shadow $transition-base;
+    }
 
-      &:hover {
-        transform: translateY(-4px);
-        box-shadow: $shadow-lg;
-      }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(#13211f, 0.08);
     }
 
     .feature-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: $radius-lg;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: $space-5;
-
-      svg {
-        width: 24px;
-        height: 24px;
-      }
-    }
-
-    .feature-title {
-      font-size: $text-lg;
-      font-weight: 700;
-      margin-bottom: $space-2;
-    }
-
-    .feature-desc {
-      font-size: $text-sm;
-      color: $text-muted;
-      line-height: 1.7;
-    }
-
-    // Steps
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: $space-8;
-      position: relative;
-
-      @include lg {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      @include sm {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .step-card {
-      text-align: center;
-      padding: $space-8;
-      background: $card-light;
-      border-radius: $radius-xl;
-      box-shadow: $shadow-sm;
-      position: relative;
-      transition: transform $transition-base;
-
-      &:hover {
-        transform: translateY(-2px);
-      }
-    }
-
-    .step-number {
       width: 48px;
       height: 48px;
-      background: linear-gradient(135deg, $primary, $secondary);
-      color: $text-white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: $text-lg;
-      font-weight: 800;
-      margin: 0 auto $space-5;
+      margin-bottom: $space-4;
+      border-radius: 14px;
+      background: #13211f;
+      color: #dac49b;
+      font-size: $text-xl;
+      font-weight: 900;
     }
 
-    .step-title {
-      font-size: $text-lg;
-      font-weight: 700;
+    .feature-card h3 {
       margin-bottom: $space-3;
+      color: #13211f;
+      font-size: $text-lg;
+      font-weight: 900;
+      letter-spacing: -0.03em;
     }
 
-    .step-desc {
+    .feature-card p {
+      color: #63716e;
       font-size: $text-sm;
-      color: $text-muted;
       line-height: 1.7;
     }
 
-    // CTA
-    .cta-card {
-      background: linear-gradient(135deg, $primary, $secondary);
-      border-radius: $radius-xl;
-      padding: $space-16 $space-8;
-      text-align: center;
-      position: relative;
+    .lifestyle { background: #fff; }
+
+    .lifestyle-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: $space-5;
+    }
+
+    .lifestyle-card {
+      display: flex;
+      flex-direction: column;
       overflow: hidden;
-
-      &::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -20%;
-        width: 400px;
-        height: 400px;
-        background: rgba($text-white, 0.05);
-        border-radius: 50%;
-      }
+      border-radius: 20px;
+      background: #fff;
+      border: 1px solid rgba(#13211f, 0.08);
+      color: inherit;
+      text-decoration: none;
+      transition: transform $transition-base, box-shadow $transition-base;
     }
 
-    .cta-content {
-      position: relative;
-      z-index: 1;
+    .lifestyle-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(#13211f, 0.1);
     }
 
-    .cta-title {
-      font-size: $text-4xl;
-      font-weight: 800;
-      color: $text-white;
+    .lifestyle-image {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .lifestyle-body {
+      padding: $space-6;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lifestyle-body h3 {
+      margin-bottom: $space-3;
+      font-size: $text-xl;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .lifestyle-body p {
+      color: #63716e;
+      font-size: $text-sm;
+      line-height: 1.7;
       margin-bottom: $space-4;
-
-      @include sm {
-        font-size: $text-2xl;
-      }
+      flex: 1;
     }
 
-    .cta-subtitle {
-      font-size: $text-lg;
-      color: rgba($text-white, 0.85);
-      margin-bottom: $space-8;
+    .lifestyle-cta {
+      color: #8a6a35;
+      font-size: $text-sm;
+      font-weight: 900;
+    }
+
+    .trusts { background: #fff; border-top: 1px solid rgba(#13211f, 0.08); }
+
+    .trust-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: $space-16;
+      align-items: center;
+    }
+
+    .trust-text h2 { max-width: 520px; }
+    .section-copy { max-width: 480px; margin-top: $space-5; color: #63716e; font-size: $text-base; line-height: 1.8; }
+
+    .trust-cta {
+      display: inline-block;
+      margin-top: $space-6;
+      padding: $space-3 $space-8;
+      border: 1px solid #13211f;
+      border-radius: $radius-full;
+      background: #13211f;
+      color: $text-white;
+      font-size: $text-sm;
+      font-weight: 900;
+      text-decoration: none;
+      transition: background $transition-base;
+    }
+
+    .trust-cta:hover { background: #2b403b; }
+
+    .trust-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: $space-5;
+    }
+
+    .stat-card {
+      padding: $space-8;
+      border: 1px solid rgba(#13211f, 0.08);
+      border-radius: 18px;
+      background: #fbfaf6;
+      text-align: center;
+    }
+
+    .stat-number {
+      display: block;
+      color: #13211f;
+      font-size: $text-5xl;
+      font-weight: 950;
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+
+    .stat-label {
+      display: block;
+      margin-top: $space-2;
+      color: #63716e;
+      font-size: $text-sm;
+      font-weight: 600;
+    }
+
+    .owner-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: $space-8;
+      padding: $space-10;
+      border: 1px solid rgba(#13211f, 0.08);
+      border-radius: 24px;
+      background: #f1eadc;
+    }
+
+    .owner-button {
+      min-height: 52px;
+      border-radius: $radius-full;
+    }
+
+    @media (max-width: 1080px) {
+      .feature-grid { grid-template-columns: repeat(2, 1fr); }
+      .lifestyle-grid { grid-template-columns: 1fr; }
+      .trust-content { grid-template-columns: 1fr; gap: $space-10; }
+    }
+
+    @media (max-width: 980px) {
+      .search-card, .city-grid { grid-template-columns: 1fr; }
+      .search-button { min-height: 56px; }
+      .section-head, .owner-card { align-items: flex-start; flex-direction: column; }
+      .hero-overlay { background: rgba(#09110f, 0.68); }
+    }
+
+    @media (max-width: 640px) {
+      .hero { min-height: auto; }
+      .hero-content { padding-top: $space-12; padding-bottom: $space-12; }
+      .hero h1 { font-size: clamp(2.4rem, 13vw, 3.8rem); }
+      .section { padding: $space-16 0; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .owner-card { padding: $space-6; }
+      .trust-stats { grid-template-columns: 1fr; }
     }
   `]
 })
 export class HomeComponent {
-  features = [
-    {
-      title: 'Verified Properties',
-      description: 'Every listing is reviewed and verified by our team to ensure quality and accuracy.',
-      iconPath: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
-      iconBg: '#EFF6FF',
-      iconColor: '#2563EB',
-    },
-    {
-      title: 'Secure Booking',
-      description: 'Our platform handles bookings and payments securely so you can rent with confidence.',
-      iconPath: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z',
-      iconBg: '#F5F3FF',
-      iconColor: '#7C3AED',
-    },
-    {
-      title: 'Direct Chat',
-      description: 'Communicate directly with landlords and get answers to all your questions instantly.',
-      iconPath: 'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z',
-      iconBg: '#ECFEFF',
-      iconColor: '#06B6D4',
-    },
-    {
-      title: 'Trust Score',
-      description: 'Each listing includes an AI-powered trust score to help you make informed decisions.',
-      iconPath: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
-      iconBg: '#F0FDF4',
-      iconColor: '#22C55E',
-    },
-    {
-      title: 'KYC Verified',
-      description: 'Landlords and renters can verify their identity for a trusted community.',
-      iconPath: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
-      iconBg: '#FFFBEB',
-      iconColor: '#F59E0B',
-    },
-    {
-      title: '24/7 Support',
-      description: 'Our dedicated support team is always ready to help you with any questions or issues.',
-      iconPath: 'M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z',
-      iconBg: '#FEF2F2',
-      iconColor: '#EF4444',
-    },
+  cities = [
+    { name: 'Cairo', count: '180+ homes', image: 'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=900&q=80' },
+    { name: 'Alexandria', count: '95+ homes', image: 'https://images.unsplash.com/photo-1609947017136-9daf32a5eb16?auto=format&fit=crop&w=900&q=80' },
+    { name: 'Giza', count: '120+ homes', image: 'https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=900&q=80' },
   ];
 
-  steps = [
-    { number: 1, title: 'Browse Listings', description: 'Explore our extensive collection of verified rental properties with detailed information and photos.' },
-    { number: 2, title: 'Book & Pay', description: 'Submit a booking request, get approved by the landlord, and complete secure payment.' },
-    { number: 3, title: 'Move In', description: 'Get your keys and move in. Our support team is here for you throughout your rental journey.' },
+  features = [
+    { icon: '01', title: 'Verified listings', text: 'Every property is reviewed for accuracy. What you see is what you get.' },
+    { icon: '02', title: 'Simple booking', text: 'Search, compare, request, and pay — all from one dashboard.' },
+    { icon: '03', title: 'Trust scores', text: 'Landlord profiles include ratings, reviews, and verification badges.' },
+    { icon: '04', title: 'Secure payments', text: 'Payments are processed securely through our platform with clear records.' },
+  ];
+
+  lifestyleCards = [
+    { title: 'For Renters', text: 'Browse verified homes, compare pricing, and book your next rental with confidence.', link: '/search', image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80', bgColor: '#fbfaf6' },
+    { title: 'For Landlords', text: 'List your property, manage bookings, and build renter trust through verified profiles.', link: '/register', image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80', bgColor: '#fbfaf6' },
+    { title: 'For Businesses', text: 'Relocate your team with furnished rentals, bulk bookings, and centralized billing.', link: '/search', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80', bgColor: '#fbfaf6' },
+  ];
+
+  stats = [
+    { number: '500+', label: 'Verified listings across Egypt' },
+    { number: '98%', label: 'Renter satisfaction rate' },
+    { number: '24h', label: 'Average response time' },
+    { number: '4.8', label: 'Average landlord trust score' },
   ];
 }

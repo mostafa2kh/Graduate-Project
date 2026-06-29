@@ -28,7 +28,7 @@ import { ProfileService } from '../../core/services/profile.service';
           </svg>
           <h3>No favorites yet</h3>
           <p>Start browsing listings and save the ones you like</p>
-          <a routerLink="/listings" class="btn-primary">Browse Listings</a>
+          <a routerLink="/search" class="btn-primary">Browse Listings</a>
         </div>
       } @else {
         <div class="favorites-grid">

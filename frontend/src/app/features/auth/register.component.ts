@@ -86,7 +86,7 @@ import { ToastService } from '../../shared/services/toast.service';
                   placeholder="Create a password"
                   [(ngModel)]="password"
                   required
-                  minlength="6"
+                  minlength="8"
                   autocomplete="new-password"
                 />
               </div>
@@ -101,7 +101,7 @@ import { ToastService } from '../../shared/services/toast.service';
                   placeholder="Confirm your password"
                   [(ngModel)]="confirmPassword"
                   required
-                  minlength="6"
+                  minlength="8"
                   autocomplete="new-password"
                 />
               </div>
@@ -159,11 +159,11 @@ import { ToastService } from '../../shared/services/toast.service';
     @use 'index' as *;
 
     .auth-page {
-      min-height: calc(100vh - $navbar-height);
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, $primary-bg 0%, $secondary-bg 50%, $accent-bg 100%);
+      background: $bg-dark;
       padding: $space-6;
     }
 
@@ -174,8 +174,8 @@ import { ToastService } from '../../shared/services/toast.service';
 
     .auth-card {
       background: $card-light;
-      border-radius: $radius-xl;
-      box-shadow: $shadow-xl;
+      border-radius: 24px;
+      box-shadow: 0 24px 80px rgba(#000, 0.4);
       overflow: hidden;
     }
 
@@ -187,25 +187,27 @@ import { ToastService } from '../../shared/services/toast.service';
     .auth-logo {
       display: inline-flex;
       align-items: center;
-      gap: $space-2;
+      gap: $space-3;
       font-size: $text-xl;
-      font-weight: 800;
-      color: $primary;
+      font-weight: 950;
+      color: $text-dark;
       text-decoration: none;
       margin-bottom: $space-6;
+      letter-spacing: -0.05em;
 
       .logo-icon {
         width: 28px;
         height: 28px;
-        color: $primary;
+        color: $secondary-dark;
       }
     }
 
     .auth-title {
       font-size: $text-3xl;
-      font-weight: 800;
+      font-weight: 950;
       color: $text-dark;
       margin-bottom: $space-2;
+      letter-spacing: -0.04em;
     }
 
     .auth-subtitle {
@@ -230,9 +232,67 @@ import { ToastService } from '../../shared/services/toast.service';
       }
     }
 
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: $space-2;
+    }
+
+    .form-group label {
+      font-size: $text-xs;
+      font-weight: 900;
+      color: $text-dark;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: $space-3 $space-4;
+      border: 1.5px solid $card-border;
+      border-radius: 14px;
+      font-family: $font-family;
+      font-size: $text-sm;
+      font-weight: 700;
+      color: $text-dark;
+      background: $card-light;
+      transition: border-color $transition-base, box-shadow $transition-base;
+      outline: none;
+
+      &:focus {
+        border-color: $secondary-dark;
+        box-shadow: 0 0 0 3px rgba($secondary-dark, 0.12);
+      }
+
+      &::placeholder {
+        color: $text-light;
+      }
+    }
+
     .btn-full {
       width: 100%;
       justify-content: center;
+    }
+
+    .btn-full.btn-primary {
+      padding: $space-4;
+      border-radius: 14px;
+      font-size: $text-sm;
+      font-weight: 900;
+      background: $primary;
+      color: $text-white;
+      border: none;
+      box-shadow: none;
+
+      &:hover:not(:disabled) {
+        background: $primary-light;
+        transform: translateY(-1px);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
     }
 
     .spinner {
@@ -253,15 +313,15 @@ import { ToastService } from '../../shared/services/toast.service';
       align-items: center;
       gap: $space-3;
       padding: $space-3 $space-4;
-      border-radius: $radius-md;
+      border-radius: 14px;
       font-size: $text-sm;
       font-weight: 500;
     }
 
     .alert-error {
-      background: $danger-bg;
-      color: $danger;
-      border: 1px solid rgba($danger, 0.2);
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid rgba(#dc2626, 0.15);
     }
 
     .alert-icon {
@@ -283,32 +343,32 @@ import { ToastService } from '../../shared/services/toast.service';
       gap: $space-2;
       padding: $space-5 $space-4;
       border: 2px solid $card-border;
-      border-radius: $radius-lg;
+      border-radius: 16px;
       background: $card-light;
       cursor: pointer;
       transition: all $transition-base;
       text-align: center;
 
       &:hover {
-        border-color: $primary-light;
-        background: $primary-bg;
+        border-color: $secondary-dark;
+        background: rgba($secondary-dark, 0.04);
       }
 
       &.active {
-        border-color: $primary;
-        background: $primary-bg;
-        box-shadow: 0 0 0 3px rgba($primary, 0.1);
+        border-color: $secondary-dark;
+        background: rgba($secondary-dark, 0.06);
+        box-shadow: 0 0 0 3px rgba($secondary-dark, 0.1);
       }
 
       .role-icon {
         width: 28px;
         height: 28px;
-        color: $primary;
+        color: $secondary-dark;
       }
 
       .role-label {
         font-size: $text-sm;
-        font-weight: 700;
+        font-weight: 900;
         color: $text-dark;
       }
 
@@ -334,9 +394,9 @@ import { ToastService } from '../../shared/services/toast.service';
     }
 
     .auth-link {
-      color: $primary;
+      color: $secondary-dark;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 900;
 
       &:hover {
         text-decoration: underline;
@@ -371,8 +431,8 @@ export class RegisterComponent {
       return;
     }
 
-    if (this.password.length < 6) {
-      this.error = 'Password must be at least 6 characters';
+    if (this.password.length < 8) {
+      this.error = 'Password must be at least 8 characters';
       return;
     }
 
@@ -388,7 +448,7 @@ export class RegisterComponent {
     }).subscribe({
       next: () => {
         this.toast.show('Account created successfully!', 'success');
-        this.router.navigate(['/']);
+        this.router.navigateByUrl(this.authService.getDefaultRedirectUrl());
       },
       error: (err) => {
         this.error = err.message || 'Registration failed. Please try again.';

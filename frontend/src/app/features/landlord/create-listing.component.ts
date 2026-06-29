@@ -14,7 +14,7 @@ import { ToastService } from '../../shared/services/toast.service';
     <div class="wizard-page">
       <div class="container">
         <div class="wizard-header">
-          <a routerLink="/listings" class="back-link">&larr; Back to Listings</a>
+          <a routerLink="/dashboard/listings" class="back-link">&larr; Back to Listings</a>
           <h1 class="wizard-title">Create New Listing</h1>
           <p class="wizard-subtitle">Fill in the details below to list your property</p>
         </div>
@@ -565,7 +565,7 @@ export class CreateListingComponent implements OnInit {
     this.listingService.createDraft(request).subscribe({
       next: (res) => {
         this.toast.show('Listing draft created!', 'success');
-        this.router.navigate(['/listings', res.data.id]);
+        this.router.navigate(['/dashboard/listings', res.data.id]);
       },
       error: (err) => {
         this.toast.show(err.message || 'Failed to create listing', 'error');

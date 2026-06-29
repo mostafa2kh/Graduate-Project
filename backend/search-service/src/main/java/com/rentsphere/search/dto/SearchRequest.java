@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public class SearchRequest {
     private String query;
+    private String q;
     private String city;
     private String area;
     private String propertyType;
@@ -18,6 +19,8 @@ public class SearchRequest {
 
     public String getQuery() { return query; }
     public void setQuery(String query) { this.query = query; }
+    public String getQ() { return q; }
+    public void setQ(String q) { this.q = q; }
     public String getCity() { return city; }
     public void setCity(String city) { this.city = city; }
     public String getArea() { return area; }

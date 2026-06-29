@@ -17,6 +17,11 @@ public interface SearchableListingRepository extends JpaRepository<SearchableLis
 
     @Query("""
         SELECT s FROM SearchableListing s WHERE s.status = 'APPROVED'
+        AND (:query IS NULL OR LOWER(s.title) LIKE LOWER(CONCAT('%', :query, '%'))
+            OR LOWER(s.description) LIKE LOWER(CONCAT('%', :query, '%'))
+            OR LOWER(s.city) LIKE LOWER(CONCAT('%', :query, '%'))
+            OR LOWER(s.area) LIKE LOWER(CONCAT('%', :query, '%'))
+            OR LOWER(s.propertyType) LIKE LOWER(CONCAT('%', :query, '%')))
         AND (:city IS NULL OR s.city LIKE %:city%)
         AND (:area IS NULL OR s.area LIKE %:area%)
         AND (:propertyType IS NULL OR s.propertyType = :propertyType)
@@ -27,6 +32,7 @@ public interface SearchableListingRepository extends JpaRepository<SearchableLis
         AND (:furnished IS NULL OR s.furnished = :furnished)
         """)
     Page<SearchableListing> searchListings(
+            @Param("query") String query,
             @Param("city") String city,
             @Param("area") String area,
             @Param("propertyType") String propertyType,

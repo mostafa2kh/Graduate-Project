@@ -32,13 +32,13 @@
 
 @mixin card {
   background: $card-light;
-  border-radius: $radius-lg;
-  box-shadow: $shadow-sm;
-  border: 1px solid $card-border;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(#13211f, 0.06);
+  border: 1px solid rgba(#13211f, 0.08);
   transition: box-shadow $transition-base, transform $transition-base;
 
   &:hover {
-    box-shadow: $shadow-md;
+    box-shadow: 0 8px 25px rgba(#13211f, 0.08);
   }
 }
 
@@ -78,13 +78,11 @@
 
 @mixin button-primary {
   @include button-base;
-  background: $primary;
+  background: $bg-dark-primary;
   color: $text-white;
-  box-shadow: 0 1px 3px rgba($primary, 0.3);
 
   &:hover:not(:disabled) {
-    background: $primary-dark;
-    box-shadow: 0 4px 6px rgba($primary, 0.4);
+    background: #2b403b;
     transform: translateY(-1px);
   }
 }
@@ -92,12 +90,10 @@
 @mixin button-secondary {
   @include button-base;
   background: $secondary;
-  color: $text-white;
-  box-shadow: 0 1px 3px rgba($secondary, 0.3);
+  color: $bg-dark-primary;
 
   &:hover:not(:disabled) {
-    background: $secondary-dark;
-    box-shadow: 0 4px 6px rgba($secondary, 0.4);
+    background: $secondary-light;
     transform: translateY(-1px);
   }
 }
@@ -105,11 +101,11 @@
 @mixin button-outline {
   @include button-base;
   background: transparent;
-  color: $primary;
-  border: 2px solid $primary;
+  color: $bg-dark-primary;
+  border: 2px solid $bg-dark-primary;
 
   &:hover:not(:disabled) {
-    background: $primary;
+    background: $bg-dark-primary;
     color: $text-white;
     transform: translateY(-1px);
   }

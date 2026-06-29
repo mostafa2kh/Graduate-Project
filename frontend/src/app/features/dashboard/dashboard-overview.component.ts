@@ -3,7 +3,9 @@ import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { ListingService } from '../../core/services/listing.service';
 import { BookingService } from '../../core/services/booking.service';
+import { PaymentService } from '../../core/services/payment.service';
 import { ChatService } from '../../core/services/chat.service';
+import { TokenStorageService } from '../../core/services/token-storage.service';
 
 @Component({
   selector: 'app-dashboard-overview',
@@ -17,20 +19,22 @@ import { ChatService } from '../../core/services/chat.service';
       </div>
 
       <div class="stats-grid">
-        <div class="stat-card" routerLink="/dashboard/listings">
-          <div class="stat-icon listings">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-              <polyline points="9 22 9 12 15 12 15 22"/>
-            </svg>
+        @if (isLandlord) {
+          <div class="stat-card" routerLink="/dashboard/listings">
+            <div class="stat-icon listings">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value">{{ stats.myListings }}</span>
+              <span class="stat-label">My Listings</span>
+            </div>
           </div>
-          <div class="stat-info">
-            <span class="stat-value">{{ stats.myListings }}</span>
-            <span class="stat-label">My Listings</span>
-          </div>
-        </div>
+        }
 
-        <div class="stat-card" routerLink="/dashboard/bookings">
+        <div class="stat-card" [routerLink]="bookingsLink">
           <div class="stat-icon bookings">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="3" y="4" width="18" height="18" rx="2"/>
@@ -39,7 +43,7 @@ import { ChatService } from '../../core/services/chat.service';
           </div>
           <div class="stat-info">
             <span class="stat-value">{{ stats.activeBookings }}</span>
-            <span class="stat-label">Active Bookings</span>
+            <span class="stat-label">{{ bookingsLabel }}</span>
           </div>
         </div>
 
@@ -55,17 +59,19 @@ import { ChatService } from '../../core/services/chat.service';
           </div>
         </div>
 
-        <div class="stat-card" routerLink="/dashboard/payments">
-          <div class="stat-icon payments">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
-            </svg>
+        @if (isRenter) {
+          <div class="stat-card" routerLink="/dashboard/payments">
+            <div class="stat-icon payments">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+              </svg>
+            </div>
+            <div class="stat-info">
+              <span class="stat-value">{{ stats.pendingPayments }}</span>
+              <span class="stat-label">Payments</span>
+            </div>
           </div>
-          <div class="stat-info">
-            <span class="stat-value">{{ stats.pendingPayments }}</span>
-            <span class="stat-label">Pending Payments</span>
-          </div>
-        </div>
+        }
       </div>
 
       <div class="sections-grid">
@@ -74,13 +80,15 @@ import { ChatService } from '../../core/services/chat.service';
             <h2>Quick Actions</h2>
           </div>
           <div class="actions-list">
-            <a routerLink="/dashboard/listings/create" class="action-item">
-              <span class="action-icon add">+</span>
-              <span class="action-text">Create New Listing</span>
-            </a>
-            <a routerLink="/dashboard/bookings" class="action-item">
+            @if (isLandlord) {
+              <a routerLink="/dashboard/listings/create" class="action-item">
+                <span class="action-icon add">+</span>
+                <span class="action-text">Create New Listing</span>
+              </a>
+            }
+            <a [routerLink]="bookingsLink" class="action-item">
               <span class="action-icon view">&#8594;</span>
-              <span class="action-text">View My Bookings</span>
+              <span class="action-text">View {{ bookingsLabel }}</span>
             </a>
             <a routerLink="/dashboard/messages" class="action-item">
               <span class="action-icon chat">&#9993;</span>
@@ -97,28 +105,43 @@ import { ChatService } from '../../core/services/chat.service';
           </div>
         </div>
 
-        <div class="section-card">
-          <div class="section-header">
-            <h2>Recent Listings</h2>
+        @if (isLandlord) {
+          <div class="section-card">
+            <div class="section-header">
+              <h2>Recent Listings</h2>
+            </div>
+            @if (recentListings.length > 0) {
+              <div class="listings-list">
+                @for (listing of recentListings; track listing.id) {
+                  <a [routerLink]="['/dashboard/listings', listing.id]" class="listing-item">
+                    <div class="listing-info">
+                      <span class="listing-title">{{ listing.title }}</span>
+                      <span class="listing-status" [class]="listing.status?.toLowerCase()">{{ listing.status }}</span>
+                    </div>
+                    <span class="listing-price">\${{ listing.price?.toLocaleString() }}</span>
+                  </a>
+                }
+              </div>
+            } @else {
+              <div class="empty-section">
+                <p>No listings yet. <a routerLink="/dashboard/listings/create">Create your first listing</a></p>
+              </div>
+            }
           </div>
-          @if (recentListings.length > 0) {
-            <div class="listings-list">
-              @for (listing of recentListings; track listing.id) {
-                <a [routerLink]="['/dashboard/listings', listing.id]" class="listing-item">
-                  <div class="listing-info">
-                    <span class="listing-title">{{ listing.title }}</span>
-                    <span class="listing-status" [class]="listing.status?.toLowerCase()">{{ listing.status }}</span>
-                  </div>
-                  <span class="listing-price">\${{ listing.price?.toLocaleString() }}</span>
-                </a>
-              }
+        } @else {
+          <div class="section-card">
+            <div class="section-header">
+              <h2>Find Your Next Home</h2>
             </div>
-          } @else {
             <div class="empty-section">
-              <p>No listings yet. <a routerLink="/dashboard/listings/create">Create your first listing</a></p>
+              <p>Search approved listings and save the properties you like.</p>
+              <a routerLink="/search" class="action-item">
+                <span class="action-icon search">&#128269;</span>
+                <span class="action-text">Browse Properties</span>
+              </a>
             </div>
-          }
-        </div>
+          </div>
+        }
       </div>
     </div>
   `,
@@ -341,26 +364,53 @@ export class DashboardOverviewComponent implements OnInit {
   };
 
   recentListings: any[] = [];
+  isRenter = false;
+  isLandlord = false;
+  bookingsLink = '/dashboard/bookings';
+  bookingsLabel = 'Bookings';
 
   constructor(
     private listingService: ListingService,
     private bookingService: BookingService,
+    private paymentService: PaymentService,
     private chatService: ChatService,
+    private tokenStorage: TokenStorageService,
   ) {}
 
   ngOnInit() {
+    const user = this.tokenStorage.getUser<{ roles?: string[] }>();
+    this.isRenter = user?.roles?.includes('ROLE_RENTER') ?? false;
+    this.isLandlord = user?.roles?.includes('ROLE_LANDLORD') ?? false;
+    this.bookingsLink = this.isLandlord ? '/dashboard/requests' : '/dashboard/bookings';
+    this.bookingsLabel = this.isLandlord ? 'Booking Requests' : 'Bookings';
     this.loadStats();
   }
 
   private loadStats() {
-    this.listingService.getMyListings(0, 5).subscribe({
-      next: (res) => {
-        if (res.success && res.data) {
-          this.stats.myListings = res.data.totalElements ?? res.data.length ?? 0;
-          this.recentListings = res.data.content ?? res.data ?? [];
+    if (this.isLandlord) {
+      this.listingService.getMyListings(0, 5).subscribe({
+        next: (res) => {
+          if (res.success && res.data) {
+            this.stats.myListings = res.data.totalElements ?? res.data.length ?? 0;
+            this.recentListings = res.data.content ?? res.data ?? [];
+          }
         }
-      }
-    });
+      });
+
+      this.bookingService.getLandlordBookings(0, 1).subscribe({
+        next: (res) => this.stats.activeBookings = res.data?.totalElements ?? res.data?.length ?? 0
+      });
+    }
+
+    if (this.isRenter) {
+      this.bookingService.getMyBookings(0, 1).subscribe({
+        next: (res) => this.stats.activeBookings = res.data?.totalElements ?? res.data?.length ?? 0
+      });
+
+      this.paymentService.getMyPayments(0, 1).subscribe({
+        next: (res) => this.stats.pendingPayments = res.data?.totalElements ?? res.data?.length ?? 0
+      });
+    }
 
     this.chatService.getUnreadCount().subscribe({
       next: (res) => {

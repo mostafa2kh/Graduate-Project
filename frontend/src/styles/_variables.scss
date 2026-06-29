@@ -2,23 +2,23 @@
 // These are exported as CSS custom properties in styles.scss
 // ==========================================
 
-// --- Primary Palette ---
-$primary: #2563EB;
-$primary-light: #3B82F6;
-$primary-dark: #1D4ED8;
-$primary-bg: #EFF6FF;
+// --- Primary Palette (Blueground Dark) ---
+$primary: #13211f;
+$primary-light: #2b403b;
+$primary-dark: #0a1210;
+$primary-bg: #f0eeea;
 
-// --- Secondary Palette ---
-$secondary: #7C3AED;
-$secondary-light: #8B5CF6;
-$secondary-dark: #6D28D9;
-$secondary-bg: #F5F3FF;
+// --- Secondary Palette (Blueground Gold) ---
+$secondary: #dac49b;
+$secondary-light: #e8d5b3;
+$secondary-dark: #8a6a35;
+$secondary-bg: #f7f2e9;
 
 // --- Accent Palette ---
-$accent: #06B6D4;
-$accent-light: #22D3EE;
-$accent-dark: #0891B2;
-$accent-bg: #ECFEFF;
+$accent: #63716e;
+$accent-light: #7c8885;
+$accent-dark: #4a5653;
+$accent-bg: #f0f1f0;
 
 // --- Semantic Colors ---
 $success: #22C55E;
@@ -34,26 +34,26 @@ $danger-light: #F87171;
 $danger-bg: #FEF2F2;
 
 // --- Backgrounds ---
-$bg-light: #F8FAFC;
-$bg-dark: #0F172A;
-$bg-gray: #F1F5F9;
+$bg-light: #fbfaf6;
+$bg-dark: #13211f;
+$bg-gray: #f1f0ea;
 
 // --- Cards ---
 $card-light: #FFFFFF;
-$card-dark: #1E293B;
-$card-border: #E2E8F0;
+$card-dark: #1a2b28;
+$card-border: rgba(#13211f, 0.08);
 
 // --- Text ---
-$text-dark: #0F172A;
-$text-muted: #64748B;
-$text-light: #94A3B8;
+$text-dark: #13211f;
+$text-muted: #63716e;
+$text-light: #9aa4a1;
 $text-white: #FFFFFF;
 
 // --- Shadows ---
-$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+$shadow-sm: 0 1px 2px rgba(#13211f, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(#13211f, 0.08), 0 2px 4px -2px rgba(#13211f, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(#13211f, 0.08), 0 4px 6px -4px rgba(#13211f, 0.06);
+$shadow-xl: 0 20px 25px -5px rgba(#13211f, 0.1), 0 8px 10px -6px rgba(#13211f, 0.08);
 
 // --- Border Radius ---
 $radius-sm: 6px;
@@ -104,6 +104,20 @@ $navbar-height: 72px;
 $sidebar-width: 260px;
 $content-max-width: 1200px;
 
+// --- Blueground-Inspired Dark Theme (used by dashboard, admin, auth) ---
+$bg-dark-primary: #13211f;
+$bg-dark-secondary: #101917;
+$bg-dark-card: #1a2b28;
+$bg-dark-hover: #243733;
+$gold-primary: #dac49b;
+$gold-light: #e8d5b3;
+$gold-dark: #8a6a35;
+$gold-muted: #c4a87a;
+$warm-white: #fbfaf6;
+$warm-white-pure: #fffdf8;
+$text-muted-green: #63716e;
+$text-muted-warm: #78837f;
+
 // --- CSS Custom Properties (applied via styles.scss) ---
 :root {
   --primary: #{$primary};
@@ -150,4 +164,16 @@ $content-max-width: 1200px;
   --shadow-lg: #{$shadow-lg};
   --shadow-xl: #{$shadow-xl};
   --font-family: #{$font-family};
+  --bg-dark-primary: #{$bg-dark-primary};
+  --bg-dark-secondary: #{$bg-dark-secondary};
+  --bg-dark-card: #{$bg-dark-card};
+  --bg-dark-hover: #{$bg-dark-hover};
+  --gold-primary: #{$gold-primary};
+  --gold-light: #{$gold-light};
+  --gold-dark: #{$gold-dark};
+  --gold-muted: #{$gold-muted};
+  --warm-white: #{$warm-white};
+  --warm-white-pure: #{$warm-white-pure};
+  --text-muted-green: #{$text-muted-green};
+  --text-muted-warm: #{$text-muted-warm};
 }

@@ -61,4 +61,9 @@ export class AuthService {
   hasAnyRole(roles: string[]): boolean {
     return roles.some(role => this.hasRole(role));
   }
+
+  getDefaultRedirectUrl(): string {
+    if (this.hasRole('ROLE_ADMIN')) return '/admin/overview';
+    return '/dashboard/overview';
+  }
 }

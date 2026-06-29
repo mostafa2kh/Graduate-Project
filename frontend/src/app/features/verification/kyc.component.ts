@@ -19,7 +19,7 @@ import { Subscription, interval } from 'rxjs';
       </div>
 
       <!-- Status Banner -->
-      <div class="status-banner" [class]="'status-' + (status?.toLowerCase() || 'unverified')">
+      <div class="status-banner" [class]="'status-' + (status.toLowerCase() || 'unverified')">
         <div class="status-icon">
           @switch (status) {
             @case ('VERIFIED') { <span>&#10003;</span> }

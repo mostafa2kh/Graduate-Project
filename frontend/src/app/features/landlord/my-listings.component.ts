@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { ListingService } from '../../core/services/listing.service';
 import { ListingSummary } from '../../core/models/listing.models';
@@ -20,7 +20,7 @@ import { ToastService } from '../../shared/services/toast.service';
           <h1 class="page-title">My Listings</h1>
           <p class="page-subtitle">Manage your rental properties</p>
         </div>
-        <a routerLink="/listings/create" class="btn-primary">
+        <a routerLink="/dashboard/listings/create" class="btn-primary">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;">
             <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
           </svg>
@@ -34,7 +34,7 @@ import { ToastService } from '../../shared/services/toast.service';
         <app-skeleton type="table-row" [columns]="['25%','15%','12%','12%','10%','10%']" />
       } @else if (listings.length === 0) {
         <app-empty-state title="No listings yet" message="Create your first rental listing to get started" icon="folder">
-          <a routerLink="/listings/create" class="btn-primary">Create Listing</a>
+          <a routerLink="/dashboard/listings/create" class="btn-primary">Create Listing</a>
         </app-empty-state>
       } @else {
         <app-table
@@ -97,6 +97,7 @@ export class MyListingsComponent implements OnInit {
 
   constructor(
     private listingService: ListingService,
+    private router: Router,
     private toast: ToastService
   ) {}
 
@@ -118,6 +119,6 @@ export class MyListingsComponent implements OnInit {
   }
 
   viewListing(listing: ListingSummary): void {
-    window.location.href = `/listings/${listing.id}`;
+    this.router.navigate(['/dashboard/listings', listing.id]);
   }
 }

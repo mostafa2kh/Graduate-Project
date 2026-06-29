@@ -1,13 +1,14 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { NotificationBellComponent } from '../../shared/components/notification-bell/notification-bell.component';
+import { ChatbotComponent } from '../../shared/components/chatbot/chatbot.component';
 import { AuthService } from '../../core/services/auth.service';
 import { TokenStorageService } from '../../core/services/token-storage.service';
 
 @Component({
   selector: 'app-dashboard-layout',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, NotificationBellComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, NotificationBellComponent, ChatbotComponent],
   template: `
     <div class="dashboard">
       <aside class="sidebar" [class.open]="sidebarOpen">
@@ -19,30 +20,58 @@ import { TokenStorageService } from '../../core/services/token-storage.service';
         </div>
 
         <nav class="sidebar-nav">
-          <a routerLink="/dashboard" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a routerLink="/dashboard/overview" class="nav-item" routerLinkActive="active">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
               <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
             </svg>
             Dashboard
           </a>
-          <a routerLink="/dashboard/listings" class="nav-item" routerLinkActive="active">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-            </svg>
-            My Listings
-          </a>
-          <a routerLink="/dashboard/bookings" class="nav-item" routerLinkActive="active">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-            </svg>
-            Bookings
-          </a>
+          @if (isLandlord) {
+            <a routerLink="/dashboard/listings" class="nav-item" routerLinkActive="active">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+              </svg>
+              My Listings
+            </a>
+            <a routerLink="/dashboard/requests" class="nav-item" routerLinkActive="active">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+              </svg>
+              Booking Requests
+            </a>
+          }
+          @if (isRenter) {
+            <a routerLink="/dashboard/bookings" class="nav-item" routerLinkActive="active">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+              </svg>
+              Bookings
+            </a>
+            <a routerLink="/dashboard/favorites" class="nav-item" routerLinkActive="active">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+              </svg>
+              Favorites
+            </a>
+            <a routerLink="/dashboard/payments" class="nav-item" routerLinkActive="active">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+              </svg>
+              Payments
+            </a>
+          }
           <a routerLink="/dashboard/messages" class="nav-item" routerLinkActive="active">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
             </svg>
             Messages
+          </a>
+          <a routerLink="/dashboard/notifications" class="nav-item" routerLinkActive="active">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 7h18s-3 0-3-7"/><path d="M13.73 21a2 2 0 01-3.46 0"/>
+            </svg>
+            Notifications
           </a>
           <a routerLink="/dashboard/profile" class="nav-item" routerLinkActive="active">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -105,6 +134,7 @@ import { TokenStorageService } from '../../core/services/token-storage.service';
           <router-outlet />
         </main>
       </div>
+      <app-chatbot/>
     </div>
   `,
   styles: [`
@@ -117,8 +147,7 @@ import { TokenStorageService } from '../../core/services/token-storage.service';
 
     .sidebar {
       width: $sidebar-width;
-      background: $card-light;
-      border-right: 1px solid $card-border;
+      background: $bg-dark;
       display: flex;
       flex-direction: column;
       position: fixed;
@@ -138,13 +167,13 @@ import { TokenStorageService } from '../../core/services/token-storage.service';
 
     .sidebar-header {
       padding: $space-6;
-      border-bottom: 1px solid $card-border;
+      border-bottom: 1px solid rgba($text-white, 0.08);
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: $space-2;
+      gap: $space-3;
       text-decoration: none;
     }
 
@@ -152,22 +181,21 @@ import { TokenStorageService } from '../../core/services/token-storage.service';
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 32px;
-      height: 32px;
-      background: linear-gradient(135deg, $primary, $secondary);
-      color: $text-white;
-      border-radius: $radius-md;
-      font-weight: 800;
-      font-size: $text-base;
+      width: 34px;
+      height: 34px;
+      background: $secondary;
+      color: $text-dark;
+      border-radius: 12px;
+      font-weight: 950;
+      font-size: $text-lg;
+      letter-spacing: -0.04em;
     }
 
     .logo-text {
       font-size: $text-lg;
-      font-weight: 800;
-      background: linear-gradient(135deg, $primary, $secondary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-weight: 950;
+      color: $text-white;
+      letter-spacing: -0.05em;
     }
 
     .sidebar-nav {
@@ -183,21 +211,21 @@ import { TokenStorageService } from '../../core/services/token-storage.service';
       align-items: center;
       gap: $space-3;
       padding: $space-3 $space-4;
-      border-radius: $radius-md;
+      border-radius: 12px;
       font-size: $text-sm;
       font-weight: 500;
-      color: $text-muted;
+      color: rgba($text-white, 0.6);
       transition: all $transition-base;
       text-decoration: none;
 
       &:hover {
-        background: $bg-light;
-        color: $text-dark;
+        background: rgba($text-white, 0.06);
+        color: $text-white;
       }
 
       &.active {
-        background: $primary-bg;
-        color: $primary;
+        background: rgba($secondary, 0.1);
+        color: $secondary;
         font-weight: 600;
       }
     }
@@ -206,18 +234,24 @@ import { TokenStorageService } from '../../core/services/token-storage.service';
       width: 20px;
       height: 20px;
       flex-shrink: 0;
+      opacity: 0.7;
+
+      .nav-item.active & {
+        opacity: 1;
+        color: $secondary;
+      }
     }
 
     .sidebar-footer {
       padding: $space-4;
-      border-top: 1px solid $card-border;
+      border-top: 1px solid rgba($text-white, 0.08);
     }
 
     .main-area {
       flex: 1;
       margin-left: $sidebar-width;
       min-height: 100vh;
-      background: $bg-light;
+      background: $warm-white;
 
       @include sm {
         margin-left: 0;
@@ -231,7 +265,7 @@ import { TokenStorageService } from '../../core/services/token-storage.service';
       height: $navbar-height;
       padding: 0 $space-8;
       background: $card-light;
-      border-bottom: 1px solid $card-border;
+      border-bottom: 1px solid rgba(#13211f, 0.08);
 
       @include sm {
         padding: 0 $space-4;
@@ -243,7 +277,7 @@ import { TokenStorageService } from '../../core/services/token-storage.service';
       background: none;
       border: none;
       padding: $space-2;
-      color: $text-muted;
+      color: $text-muted-green;
 
       @include sm {
         display: flex;
@@ -269,12 +303,12 @@ import { TokenStorageService } from '../../core/services/token-storage.service';
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: linear-gradient(135deg, $primary, $secondary);
-      color: $text-white;
+      background: $bg-dark;
+      color: $secondary;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 600;
+      font-weight: 900;
       font-size: $text-sm;
       cursor: pointer;
       text-transform: uppercase;
@@ -286,9 +320,9 @@ import { TokenStorageService } from '../../core/services/token-storage.service';
       right: 0;
       width: 220px;
       background: $card-light;
-      border-radius: $radius-lg;
+      border-radius: 16px;
       border: 1px solid $card-border;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+      box-shadow: 0 10px 40px rgba($text-dark, 0.18);
       z-index: 300;
       margin-top: $space-2;
       overflow: hidden;
@@ -296,21 +330,21 @@ import { TokenStorageService } from '../../core/services/token-storage.service';
 
     .profile-header {
       padding: $space-4;
-      border-bottom: 1px solid $card-border;
-      background: $bg-light;
+      border-bottom: 1px solid rgba(#13211f, 0.08);
+      background: $warm-white;
     }
 
     .profile-name {
       display: block;
-      font-weight: 700;
+      font-weight: 900;
       font-size: $text-sm;
-      color: $text-dark;
+      color: $bg-dark-primary;
     }
 
     .profile-email {
       display: block;
       font-size: $text-xs;
-      color: $text-muted;
+      color: $text-muted-green;
       margin-top: 2px;
     }
 
@@ -323,33 +357,34 @@ import { TokenStorageService } from '../../core/services/token-storage.service';
       align-items: center;
       gap: $space-3;
       padding: $space-3;
-      border-radius: $radius-md;
+      border-radius: 12px;
       font-size: $text-sm;
-      color: $text-dark;
+      font-weight: 700;
+      color: $bg-dark-primary;
       text-decoration: none;
       cursor: pointer;
       transition: background $transition-base;
 
       &:hover {
-        background: $bg-light;
+        background: $warm-white;
       }
 
       svg {
         width: 16px;
         height: 16px;
         flex-shrink: 0;
-        color: $text-muted;
+        color: $text-muted-green;
       }
 
       &.logout {
-        color: #ef4444;
-        svg { color: #ef4444; }
+        color: #dc2626;
+        svg { color: #dc2626; }
       }
     }
 
     .profile-divider {
       height: 1px;
-      background: $card-border;
+      background: rgba(#13211f, 0.08);
       margin: $space-1 $space-2;
     }
 
@@ -368,6 +403,8 @@ export class DashboardLayoutComponent implements OnInit {
   userInitials = 'U';
   userName = '';
   userEmail = '';
+  isRenter = false;
+  isLandlord = false;
 
   constructor(
     private authService: AuthService,
@@ -376,11 +413,13 @@ export class DashboardLayoutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const user = this.tokenStorage.getUser<{ fullName: string; email: string }>();
+    const user = this.tokenStorage.getUser<{ fullName: string; email: string; roles?: string[] }>();
     if (user) {
       this.userName = user.fullName || '';
       this.userEmail = user.email || '';
       this.userInitials = this.getInitials(user.fullName);
+      this.isRenter = user.roles?.includes('ROLE_RENTER') ?? false;
+      this.isLandlord = user.roles?.includes('ROLE_LANDLORD') ?? false;
     }
   }
 

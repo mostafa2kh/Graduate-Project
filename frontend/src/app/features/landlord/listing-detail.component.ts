@@ -16,7 +16,7 @@ import { ToastService } from '../../shared/services/toast.service';
   imports: [RouterLink, DatePipe, BadgeComponent, SkeletonComponent, ImageUploadComponent, TrustScoreComponent],
   template: `
     <div class="container" style="padding: 2rem 0;">
-      <a routerLink="/listings" class="back-link">&larr; Back to My Listings</a>
+      <a routerLink="/dashboard/listings" class="back-link">&larr; Back to My Listings</a>
 
       @if (loading) {
         <app-skeleton type="card" />
