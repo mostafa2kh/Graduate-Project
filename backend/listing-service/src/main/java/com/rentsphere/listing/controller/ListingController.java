@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
 import java.util.LinkedHashMap;
@@ -98,6 +99,47 @@ public class ListingController {
             @RequestBody List<ListingRequest.AvailabilityRequest> availability) {
         ListingResponse response = listingService.updateAvailability(listingId, principal.userId(), availability);
         return ResponseEntity.ok(wrap("Availability updated", response, "/api/listings/" + listingId + "/availability"));
+    }
+
+    @PostMapping("/location/reverse-geocode")
+    public ResponseEntity<Map<String, Object>> reverseGeocode(@RequestBody Map<String, Double> coords) {
+        Double lat = coords.get("latitude");
+        Double lng = coords.get("longitude");
+        if (lat == null || lng == null) {
+            return ResponseEntity.badRequest().body(wrap("Missing latitude or longitude", null, "/api/listings/location/reverse-geocode"));
+        }
+
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("latitude", lat);
+        result.put("longitude", lng);
+
+        try {
+            RestTemplate rt = new RestTemplate();
+            String url = String.format(
+                "https://nominatim.openstreetmap.org/reverse?lat=%s&lon=%s&format=json&addressdetails=1",
+                lat, lng
+            );
+            org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
+            headers.set("User-Agent", "RentSphere/1.0 (rentsphere-app)");
+            org.springframework.http.HttpEntity<?> entity = new org.springframework.http.HttpEntity<>(headers);
+            org.springframework.http.ResponseEntity<Map> response = rt.exchange(url, org.springframework.http.HttpMethod.GET, entity, Map.class);
+            Map<String, Object> nominatim = response.getBody();
+            if (nominatim != null && nominatim.containsKey("address")) {
+                @SuppressWarnings("unchecked")
+                Map<String, Object> address = (Map<String, Object>) nominatim.get("address");
+                result.put("city", address.getOrDefault("city", address.getOrDefault("town", address.getOrDefault("village", ""))));
+                result.put("state", address.getOrDefault("state", ""));
+                result.put("country", address.getOrDefault("country", ""));
+                result.put("displayName", nominatim.getOrDefault("display_name", ""));
+            }
+        } catch (Exception e) {
+            result.put("city", "");
+            result.put("state", "");
+            result.put("country", "");
+            result.put("error", e.getMessage());
+        }
+
+        return ResponseEntity.ok(wrap("Location resolved", result, "/api/listings/location/reverse-geocode"));
     }
 
     private Map<String, Object> wrap(String message, Object data, String path) {

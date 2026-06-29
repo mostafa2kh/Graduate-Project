@@ -1,0 +1,121 @@
+.renter-dashboard {
+  padding-top: 10px;
+}
+
+.empty-bookings {
+  padding: 60px 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Bookings Table */
+.bookings-table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  background: rgba(13, 17, 30, 0.5);
+  border: 1px solid var(--border-light);
+}
+
+.bookings-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.bookings-table th {
+  padding: 16px 24px;
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.bookings-table td {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-muted);
+  vertical-align: middle;
+}
+
+.bookings-table tr:last-child td {
+  border-bottom: none;
+}
+
+.booking-row-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+}
+
+/* Payment overlay */
+.payment-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(5, 7, 13, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 20px;
+}
+
+.payment-modal {
+  width: 100%;
+  max-width: 460px;
+  background: var(--bg-modal);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+
+.payment-modal-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.payment-modal-close:hover {
+  color: var(--text-main);
+}
+
+.checkout-summary-box {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.payment-success-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--success);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+  animation: scaleUpCheck 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes scaleUpCheck {
+  from { transform: scale(0.6); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}

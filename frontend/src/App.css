@@ -1,0 +1,22 @@
+/* Local styles for App component. Most styling is managed via the design system in index.css */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-dark);
+}
+
+.main-content {
+  flex: 1;
+  padding: 80px 24px 40px; /* offset for fixed navbar */
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 70px 16px 30px;
+  }
+}

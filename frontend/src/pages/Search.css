@@ -1,0 +1,373 @@
+.search-page-container {
+  display: flex;
+  gap: 24px;
+  height: calc(100vh - 110px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sidebar Styling */
+.search-sidebar {
+  width: 320px;
+  flex-shrink: 0;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background: var(--bg-card);
+}
+
+.reset-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-dark);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.reset-btn:hover {
+  color: var(--primary);
+}
+
+.sidebar-input-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-dark);
+}
+
+.bed-btn {
+  flex: 1;
+  background: rgba(13, 13, 13, 0.03);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  padding: 8px 0;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.bed-btn:hover, .bed-btn.active {
+  background: rgba(251, 110, 68, 0.1);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.amenities-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 180px;
+  overflow-y: auto;
+  padding-right: 4px;
+  margin-top: 8px;
+}
+
+.amenity-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  user-select: none;
+  transition: var(--transition-fast);
+}
+
+.amenity-checkbox-label:hover {
+  color: var(--primary);
+}
+
+.amenity-check {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+/* Listings Column */
+.search-results-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.results-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.search-card {
+  display: flex;
+  cursor: pointer;
+  overflow: hidden;
+  height: 160px;
+  transition: var(--transition-normal);
+}
+
+.search-card.highlighted {
+  border-color: var(--border-active);
+  box-shadow: var(--shadow-glow);
+  transform: translateX(4px);
+}
+
+.search-card-img-wrapper {
+  position: relative;
+  width: 220px;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.search-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-slow);
+}
+
+.search-card:hover .search-card-img {
+  transform: scale(1.06);
+}
+
+.search-card-type {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 2px 8px;
+  background: var(--secondary);
+  border-radius: var(--radius-sm);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.search-card-score {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 2px 6px;
+  background: var(--primary);
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.search-card-info {
+  padding: 16px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-card-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.search-price {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--secondary);
+}
+
+.search-loc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.search-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-card-specs {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.spec-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.search-card-tags {
+  display: flex;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.amenity-mini-tag {
+  background: rgba(13, 13, 13, 0.05);
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* Empty State */
+.empty-search {
+  padding: 60px 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.empty-icon {
+  color: var(--text-dark);
+}
+
+/* Map Section */
+.search-map-pane {
+  flex: 1;
+  background: rgba(230, 230, 240, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.map-layer-indicator {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-main);
+  z-index: 5;
+}
+
+.cesium-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.cesium-globe {
+  width: 100%;
+  height: 100%;
+}
+
+.cesium-container .cesium-viewer {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.cesium-container .cesium-viewer-toolbar {
+  display: none;
+}
+
+.cesium-container .cesium-viewer-bottom {
+  display: none;
+}
+
+/* Popup card over the globe */
+.cesium-popup-card {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  max-width: 280px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  z-index: 10;
+  background: var(--bg-modal);
+}
+
+.cesium-popup-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #fff;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.cesium-popup-img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.cesium-popup-body {
+  padding: 12px;
+}
+
+.cesium-popup-title {
+  color: var(--text-main);
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.cesium-popup-price {
+  color: var(--secondary);
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.cesium-popup-loc {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+@media (max-width: 1024px) {
+  .search-map-pane {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-page-container {
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+  }
+  .search-sidebar {
+    width: 100%;
+    height: auto;
+    overflow-y: visible;
+  }
+}

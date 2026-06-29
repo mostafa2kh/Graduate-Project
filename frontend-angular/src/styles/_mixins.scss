@@ -1,0 +1,148 @@
+@use 'variables' as *;
+
+@mixin sm {
+  @media (min-width: $screen-sm) { @content; }
+}
+
+@mixin md {
+  @media (min-width: $screen-md) { @content; }
+}
+
+@mixin lg {
+  @media (min-width: $screen-lg) { @content; }
+}
+
+@mixin xl {
+  @media (min-width: $screen-xl) { @content; }
+}
+
+@mixin container {
+  width: 100%;
+  max-width: $content-max-width;
+  margin: 0 auto;
+  padding: 0 $space-6;
+
+  @include lg {
+    padding: 0 $space-8;
+  }
+}
+
+@mixin card {
+  background: $card-light;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(#0D0D0D, 0.06);
+  border: 1px solid rgba(#0D0D0D, 0.08);
+  transition: box-shadow $transition-base, transform $transition-base;
+
+  &:hover {
+    box-shadow: 0 8px 25px rgba(#0D0D0D, 0.08);
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  padding: $space-3 $space-6;
+  border: none;
+  border-radius: $radius-md;
+  font-family: $font-family;
+  font-size: $text-sm;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all $transition-base;
+  text-decoration: none;
+  line-height: 1.5;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@mixin button-primary {
+  @include button-base;
+  background: $primary;
+  color: $text-white;
+
+  &:hover:not(:disabled) {
+    background: $primary-dark;
+    transform: translateY(-1px);
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background: $secondary;
+  color: $text-white;
+
+  &:hover:not(:disabled) {
+    background: $secondary-light;
+    transform: translateY(-1px);
+  }
+}
+
+@mixin button-outline {
+  @include button-base;
+  background: transparent;
+  color: $secondary;
+  border: 2px solid $secondary;
+
+  &:hover:not(:disabled) {
+    background: $secondary;
+    color: $text-white;
+    transform: translateY(-1px);
+  }
+}
+
+@mixin input-base {
+  width: 100%;
+  padding: $space-3 $space-4;
+  border: 1.5px solid $card-border;
+  border-radius: $radius-md;
+  font-family: $font-family;
+  font-size: $text-sm;
+  color: $text-dark;
+  background: $card-light;
+  transition: border-color $transition-base, box-shadow $transition-base;
+  outline: none;
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba($primary, 0.1);
+  }
+
+  &::placeholder {
+    color: $text-light;
+  }
+
+  &.ng-invalid.ng-touched {
+    border-color: $danger;
+    box-shadow: 0 0 0 3px rgba($danger, 0.1);
+  }
+}
+
+@mixin skeleton {
+  background: linear-gradient(90deg, $bg-gray 25%, $card-border 50%, $bg-gray 75%);
+  background-size: 200% 100%;
+  animation: skeleton 1.5s infinite;
+  border-radius: $radius-md;
+}
+
+@keyframes skeleton {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

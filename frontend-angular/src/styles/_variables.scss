@@ -1,0 +1,162 @@
+// RentSphere Design System — Variables (Spotahome-Inspired Palette)
+// ==========================================
+
+// --- Primary Palette (Spotahome Orange) ---
+$primary: #FB6E44;
+$primary-light: #FF8540;
+$primary-dark: #af4d2f;
+$primary-bg: #FFF0EB;
+
+// --- Secondary Palette (Spotahome Navy) ---
+$secondary: #0a0d77;
+$secondary-light: #3B3992;
+$secondary-dark: #0D0D0D;
+$secondary-bg: #EEEEFF;
+
+// --- Accent Palette ---
+$accent: #676767;
+$accent-light: #8a8a8a;
+$accent-dark: #444444;
+$accent-bg: #F4F4F4;
+
+// --- Semantic Colors ---
+$success: #0cc48c;
+$success-light: #3ddba3;
+$success-bg: #d4f5eb;
+
+$warning: #ffa800;
+$warning-light: #ffc044;
+$warning-bg: #FEFCE8;
+
+$danger: #e34242;
+$danger-light: #e86666;
+$danger-bg: #fef2f2;
+
+// --- Backgrounds ---
+$bg-light: #F7F7F7;
+$bg-dark: #0a0d77;
+$bg-gray: #EBEBEB;
+
+// --- Cards ---
+$card-light: #FFFFFF;
+$card-dark: #1a1a2e;
+$card-border: rgba(#0a0d77, 0.08);
+
+// --- Text ---
+$text-dark: #0D0D0D;
+$text-muted: #676767;
+$text-light: #c7c7c7;
+$text-white: #FFFFFF;
+
+// --- Shadows ---
+$shadow-sm: 0 1px 2px rgba(#0D0D0D, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(#0D0D0D, 0.08), 0 2px 4px -2px rgba(#0D0D0D, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(#0D0D0D, 0.08), 0 4px 6px -4px rgba(#0D0D0D, 0.06);
+$shadow-xl: 0 20px 25px -5px rgba(#0D0D0D, 0.1), 0 8px 10px -6px rgba(#0D0D0D, 0.08);
+
+// --- Border Radius ---
+$radius-sm: 8px;
+$radius-md: 12px;
+$radius-lg: 16px;
+$radius-xl: 20px;
+$radius-full: 9999px;
+
+// --- Typography ---
+$font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$font-heading: 'Agrandir', 'Poppins', sans-serif;
+
+$text-xs: 0.75rem;
+$text-sm: 0.875rem;
+$text-base: 1rem;
+$text-lg: 1.125rem;
+$text-xl: 1.25rem;
+$text-2xl: 1.5rem;
+$text-3xl: 1.875rem;
+$text-4xl: 2.25rem;
+$text-5xl: 3rem;
+
+// --- Spacing ---
+$space-1: 0.25rem;
+$space-2: 0.5rem;
+$space-3: 0.75rem;
+$space-4: 1rem;
+$space-5: 1.25rem;
+$space-6: 1.5rem;
+$space-8: 2rem;
+$space-10: 2.5rem;
+$space-12: 3rem;
+$space-16: 4rem;
+$space-20: 5rem;
+
+// --- Transitions ---
+$transition-fast: 150ms ease;
+$transition-base: 250ms ease;
+$transition-slow: 350ms ease;
+
+// --- Breakpoints (used in mixins only) ---
+$screen-sm: 640px;
+$screen-md: 768px;
+$screen-lg: 1024px;
+$screen-xl: 1280px;
+
+// --- Layout (exported as CSS custom properties) ---
+$navbar-height: 72px;
+$sidebar-width: 260px;
+$content-max-width: 1200px;
+
+// --- Spotahome-Specific Colors ---
+$sah-secondary-pink: #ffccef;
+$sah-secondary-blue: #C9E3F7;
+$sah-tertiary: #F4EFED;
+$sah-ultra-light: #F7F7F7;
+$sah-overlay-black: rgba(0, 0, 0, 0.60);
+$sah-shadow: rgba(204, 214, 221, 0.24);
+
+// --- CSS Custom Properties ---
+:root {
+  --primary: #{$primary};
+  --primary-light: #{$primary-light};
+  --primary-dark: #{$primary-dark};
+  --primary-bg: #{$primary-bg};
+  --secondary: #{$secondary};
+  --secondary-light: #{$secondary-light};
+  --secondary-dark: #{$secondary-dark};
+  --secondary-bg: #{$secondary-bg};
+  --accent: #{$accent};
+  --accent-light: #{$accent-light};
+  --accent-dark: #{$accent-dark};
+  --accent-bg: #{$accent-bg};
+  --success: #{$success};
+  --success-light: #{$success-light};
+  --success-bg: #{$success-bg};
+  --warning: #{$warning};
+  --warning-light: #{$warning-light};
+  --warning-bg: #{$warning-bg};
+  --danger: #{$danger};
+  --danger-light: #{$danger-light};
+  --danger-bg: #{$danger-bg};
+  --bg-light: #{$bg-light};
+  --bg-dark: #{$bg-dark};
+  --bg-gray: #{$bg-gray};
+  --card-light: #{$card-light};
+  --card-dark: #{$card-dark};
+  --card-border: #{$card-border};
+  --text-dark: #{$text-dark};
+  --text-muted: #{$text-muted};
+  --text-light: #{$text-light};
+  --text-white: #{$text-white};
+  --navbar-height: #{$navbar-height};
+  --sidebar-width: #{$sidebar-width};
+  --content-max-width: #{$content-max-width};
+  --radius-sm: #{$radius-sm};
+  --radius-md: #{$radius-md};
+  --radius-lg: #{$radius-lg};
+  --radius-xl: #{$radius-xl};
+  --radius-full: #{$radius-full};
+  --shadow-sm: #{$shadow-sm};
+  --shadow-md: #{$shadow-md};
+  --shadow-lg: #{$shadow-lg};
+  --shadow-xl: #{$shadow-xl};
+  --font-family: #{$font-family};
+  --font-heading: #{$font-heading};
+}

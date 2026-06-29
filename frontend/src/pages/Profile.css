@@ -1,0 +1,71 @@
+.profile-page-container {
+  padding-top: 10px;
+}
+
+.profile-header-card {
+  padding: 32px;
+  margin-bottom: 24px;
+}
+
+.profile-large-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3.5px solid var(--primary);
+  box-shadow: 0 0 15px rgba(251, 110, 68, 0.3);
+}
+
+.profile-layout-content {
+  display: flex;
+  gap: 24px;
+}
+
+.profile-details-pane {
+  flex: 1;
+  padding: 24px;
+}
+
+.profile-kyc-pane {
+  flex: 1.5;
+  padding: 24px;
+}
+
+.mock-upload-box {
+  background: rgba(13, 13, 13, 0.03);
+  border: 1.5px dashed var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: var(--transition-fast);
+}
+
+.mock-upload-box:hover {
+  background: rgba(251, 110, 68, 0.04);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.kyc-done-card {
+  padding: 30px;
+  text-align: center;
+  background: rgba(16, 185, 129, 0.05);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .profile-layout-content {
+    flex-direction: column;
+  }
+}
